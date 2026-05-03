@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Code Translator</title>
+    <link rel="icon" href="icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&family=Unkempt:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">  
+    <h1>Morse Code Translator</h1>
+    <h3>Type Morse code using "." and "-" or "_", using spaces to separate letters and / to separate words.</h3>
+    <div class="translator">
+        <textarea id="inputText" placeholder="Enter text to translate..."></textarea>
+        <button id="translateBtn">Translate to Morse Code</button>
+        <div id="morseOutput">
+        <textarea id="outputText" placeholder="Morse code will appear here..." readonly></textarea>
+        <div class="butoes">
+            <button id="copyBtn" onclick="copyToClipboard()">Copy</button>
+            <button id="playBtn">Play</button>
+            <button id="stopBtn">Stop</button>  
+            <button id="repeatBtn">Repeat</button>
+            <button id="soundBtn">Sound</button>
+            <button id="lightBtn">Light</button>
+        </div>
+        <span style="color: rgb(255, 0, 162); animation: pulse 2s infinite;">●</span>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>Created by <a id="link" href="https://annabia22.github.io/personal-website/" target="_blank">Anna Travascio</a></p>
+</footer>
+    <script>
+        function copyToClipboard() {
+            const outputField = document.getElementById('outputText');
+            navigator.clipboard.writeText(outputField.value)
+        }
+    </script>
+    <script src="translator.js"></script>
+</body>
+</html>
