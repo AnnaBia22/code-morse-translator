@@ -1,6 +1,6 @@
 document.getElementById("translateBtn").addEventListener("click", function() {
     const inputText = document.getElementById("inputText").value;
-    const outputField = document.getElementById("outputText"); // Target the element, not just the value
+    const outputField = document.getElementById("outputText"); 
     
     const translations = {
         "A" : ".- ", "a" : ".- ",

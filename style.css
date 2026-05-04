@@ -11,6 +11,12 @@
     justify-content:center;
     background-color:#ffb5f1;
 }
+.box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
 footer{
     height: 5vh;
     display:flex;
@@ -56,6 +62,31 @@ button{
     padding: 5px 10px;
     cursor:pointer;
 }
+button:hover{
+    background-color:#ff3ba7;
+}
+.switch input {
+    display: none;
+}
+
+.switch {
+    margin-top:5px;
+    font-family: 'Unkempt', cursive;
+    font-size: small;
+    color:#fff;
+    background-color:#ff00a6;
+    border:none;
+    border-radius:5px;
+    padding: 5px 10px;
+    cursor:pointer;
+}
+
+.switch:has(input:checked) {
+    background: #ffc7ee;
+    color: #363434;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
+    transform: translateY(2px);
+}
 h1{
     font-size:2.5rem;
     color:#333;
@@ -92,8 +123,8 @@ textarea{
     border-radius:5px;
     resize:none;
 }
-@keyframes pulse {
-    0% { opacity: 1; text-shadow: 0 0 5px rgb(255, 0, 162); }
-    50% { opacity: 0.3; text-shadow: 0 0 0px rgb(255, 0, 162); }
-    100% { opacity: 1; text-shadow: 0 0 5px rgb(255, 0, 162); }
+#light{
+    color:#ff00e1;
+    display: flex;
+    justify-content: right;
 }

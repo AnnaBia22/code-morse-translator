@@ -16,18 +16,21 @@
     <h3>Type Morse code using "." and "-" or "_", using spaces to separate letters and / to separate words.</h3>
     <div class="translator">
         <textarea id="inputText" placeholder="Enter text to translate..."></textarea>
+        <div class="box">
+        <label class="switch"><input type="checkbox" id="reverseBtn">Switch Mode</label>
         <button id="translateBtn">Translate to Morse Code</button>
+        </div>
         <div id="morseOutput">
         <textarea id="outputText" placeholder="Morse code will appear here..." readonly></textarea>
         <div class="butoes">
             <button id="copyBtn" onclick="copyToClipboard()">Copy</button>
-            <button id="playBtn">Play</button>
-            <button id="stopBtn">Stop</button>  
-            <button id="repeatBtn">Repeat</button>
-            <button id="soundBtn">Sound</button>
-            <button id="lightBtn">Light</button>
+            <button id="playBtn" onclick="playMorseCode()">Play</button>
+            <button id="stopBtn" onclick="stopPlayback()">Stop</button>  
+            <label class="switch"><input type="checkbox" id="repeatBtn">Repeat</label>
+            <label class="switch"><input type="checkbox" id="soundBtn">Sound</label>
+            <label class="switch"><input type="checkbox" id="lightBtn">Light</label>
         </div>
-        <span style="color: rgb(255, 0, 162); animation: pulse 2s infinite;">●</span>
+        <span id="light">●</span>
         </div>
     </div>
 </div>
@@ -38,7 +41,73 @@
         function copyToClipboard() {
             const outputField = document.getElementById('outputText');
             navigator.clipboard.writeText(outputField.value)
+                .then(() => {
+                    alert('Morse code copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
         }
+       const dotAudio = new Audio('dot.wav');
+const dashAudio = new Audio('dash.wav');
+// Variable to track the current playback timeouts so we can stop them
+let activeTimeouts = [];
+
+function playMorseCode() {
+    // Clear any existing playback if user clicks "Play" again
+    stopPlayback();
+
+    const morseCode = document.getElementById('outputText').value;
+    const unit = 250; // Faster unit for better rhythm (standard Morse)
+    let time = 0;
+
+    for (const symbol of morseCode) {
+        // We schedule the event, but check the toggle state inside the timeout
+        let timeout = setTimeout(() => {
+            const soundEnabled = document.getElementById('soundBtn').checked;
+            const lightEnabled = document.getElementById('lightBtn').checked;
+
+            if (symbol === '.' || symbol === '-' || symbol === '_') {
+                if (soundEnabled) {
+                    const sound = (symbol === '.') ? dotAudio : dashAudio;
+                    sound.currentTime = 0; // Rewind to start
+                    sound.play().catch(e => console.log("Audio play blocked", e));
+                }
+                
+                if (lightEnabled) {
+                    const light = document.getElementById('light');
+                    light.style.color = "#ffffff"; // Turn light white/bright
+                    setTimeout(() => {
+                        light.style.color = "#ff00e1"; // Back to original pink
+                    }, symbol === '.' ? unit : unit * 3);
+                }
+            }
+        }, time);
+
+        activeTimeouts.push(timeout);
+
+        // Advance the timeline
+        if (symbol === '.') time += unit * 2;
+        else if (symbol === '-' || symbol === '_') time += unit * 4;
+        else if (symbol === ' ') time += unit * 2;
+        else if (symbol === '/') time += unit * 4;
+    }
+
+    // Repeat Logic
+    let repeatTimeout = setTimeout(() => {
+        if (document.getElementById('repeatBtn').checked) {
+            playMorseCode();
+        }
+    }, time + unit);
+    activeTimeouts.push(repeatTimeout);
+}
+
+// Function to kill all scheduled sounds/lights
+function stopPlayback() {
+    activeTimeouts.forEach(t => clearTimeout(t));
+    activeTimeouts = [];
+}
+document.getElementById('stopBtn').addEventListener('click', stopPlayback);
     </script>
     <script src="translator.js"></script>
 </body>
