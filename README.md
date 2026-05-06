@@ -1,2 +1,6 @@
 # code-morse-translator
-A web site to translate code morse
+literally the title.
+
+AI was used on javascript logic
+
+MIT License

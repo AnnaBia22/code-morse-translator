@@ -17,7 +17,7 @@
     <div class="translator">
         <textarea id="inputText" placeholder="Enter text to translate..."></textarea>
         <div class="box">
-        <label class="switch"><input type="checkbox" id="reverseBtn">Switch Mode</label>
+        <!-- <label class="switch"><input type="checkbox" id="reverseBtn">Switch Mode</label> add later... maybe... idk-->
         <button id="translateBtn">Translate to Morse Code</button>
         </div>
         <div id="morseOutput">
@@ -58,7 +58,7 @@ function playMorseCode() {
     stopPlayback();
 
     const morseCode = document.getElementById('outputText').value;
-    const unit = 250; // Faster unit for better rhythm (standard Morse)
+    const unit = 250;
     let time = 0;
 
     for (const symbol of morseCode) {
